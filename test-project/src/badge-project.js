@@ -16,27 +16,13 @@ export class BadgeProject extends LitElement {
 
   constructor() {
     super();
-    console.log("inside badge project")
+    this.container = 'Container';
     this.badges = [];
-    this.updateBadges();
     this.getSearchResults().then((results) => {
       this.badges = results;
     });
   }
 
-  updateBadges() {
-    console.log("calling backend")
-    const address = '/api/badge-back';
-    fetch(address).then((response) => {
-      if (response.ok) {
-        return response.json()
-      }
-      return [];
-    })
-    .then((data) => {
-      this.badges = data;
-    });
-  }
 
   static get styles() {
     return css`
@@ -44,6 +30,7 @@ export class BadgeProject extends LitElement {
         display: block;
       }
       .wrapper {
+  
         border: 2px solid black;
         display: flex;
       }
@@ -69,12 +56,13 @@ export class BadgeProject extends LitElement {
 
   async _handleSearchEvent(e) {
     const term = e.detail.value;
-    this.badges = await this.getSearchResults(e.detail.value);
+    this.badges = await this.getSearchResults(term);
     
   }
 
   render() {
     return html`
+    <h2>${this.container}</h2>
     <search-widget @value-changed="${this._handleSearchEvent}"></search-widget>
       <div class="wrapper">
         ${this.badges.map(
