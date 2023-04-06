@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
 import "./edu-badge.js";
-import "search-widget.js";
+import "./search-widget.js";
 
 
 

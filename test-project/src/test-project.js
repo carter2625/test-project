@@ -136,13 +136,7 @@ header {
   overflow-y: scroll;
   height: 100vh;
 }
-
-
-
-
-
-  `;
-
+ `;
 
   render() {
     return html`
@@ -159,6 +153,11 @@ header {
         <button id="search-button">Search</button>
         </div>
       </div>
+      <br>
+      <div class="badges-container">
+      </div>
+      </div>
+
 
     `;
   }

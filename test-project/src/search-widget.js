@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import "@lrnwebcomponents/simple-icon/simple-icon.js"
 import "@lrnwebcomponents/simple-icon/lib/simple-icon.js"
+import "./test-project.js"
 
 export class SearchWidget extends LitElement {
     static get properties() {
