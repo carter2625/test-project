@@ -4,13 +4,19 @@ import { LitElement, html, css } from "lit";
 
 export class Badge extends LitElement {
 
-  constructor() {
-    super();
-    this.name = "APA Style Citations:   Introduction";
-    this.creator = "Creator: Victoria Bush";
-    this.image = "https://badgesapp.psu.edu/uploads/badge/image/337/APA_Style.png"
-    this.department = "Technology and Information"
+  static get properties() {
+    return {
+      name: {
+        type: String,
+        reflect: true
+      },
+      creator: { type: String},
+      department: { type: String},
+      image: {type: String},
+    }
   }
+
+
 
 
 
@@ -94,7 +100,42 @@ export class Badge extends LitElement {
     margin-left: 45px;
     margin-bottom: auto;
 }
+
+@media only screen and (max-width: 1200px){
+  .wrapper {
+    background-color: pink;
+  }
+}
+@media only screen and (max-width: 600px){
+  .wrapper {
+    background-color: purple;
+  }
+}
+@media only screen and (max-width: 425px){
+  .wrapper {
+    font-weight: normal;
+  }
+  .wrapper .header h3 {
+    font-size: 12px;
+  }
+  .wrapper .header h4 {
+    font-size: 10px !important;
+  }
+  details {
+    display: none;
+  }
+}
     `;
+  }
+
+  
+
+  constructor() {
+    super();
+    this.name = "APA Style Citations:   Introduction";
+    this.creator = "Creator: Victoria Bush";
+    this.image = "https://badgesapp.psu.edu/uploads/badge/image/337/APA_Style.png"
+    this.department = "Technology and Information"
   }
 
   render() {

@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 
-const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
 export class TestProject extends LitElement {
   static get properties() {
@@ -144,13 +143,6 @@ header {
 
   `;
 
-  constructor() {
-    super();
-    this.name = "APA Style Citations:   Introduction";
-    this.creator = "Creator: Victoria Bush";
-    this.image = "https://badgesapp.psu.edu/uploads/badge/image/337/APA_Style.png"
-    this.department = "Technology and Information"
-  }
 
   render() {
     return html`
