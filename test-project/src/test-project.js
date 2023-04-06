@@ -2,9 +2,16 @@ import { LitElement, html, css } from 'lit';
 
 const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
-class TestProject extends LitElement {
-  static properties = {
-    header: { type: String },
+export class TestProject extends LitElement {
+  static get properties() {
+    return {
+      header: {type: String},
+      name: {type: String},
+      creator: {type: String},
+      department: {type: String},
+      image: {type: String},
+    }
+  
   }
 
   static styles = css`
