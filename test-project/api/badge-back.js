@@ -38,12 +38,7 @@ const search = req.query.search || '';
       }
       return false;
     })
-    //let filteredData = badge.filter(
-      //(value) =>
-      //value["name"].toLowerCase().includes(searchInput.toLowerCase()) || 
-      //value["creator"].toLowerCase().includes(searchInput.toLowerCase()) ||
-      //value["department"].toLowerCase().includes(searchInput.toLowerCase())
-    //);
+   
   
   
     res.setHeader('Cache-Control', 'max-age=0, s-maxage=1800');
