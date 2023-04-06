@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import "./edu-badge.js";
+import "search-widget.js";
 
 
 
@@ -18,28 +19,23 @@ export class BadgeProject extends LitElement {
     console.log("inside badge project")
     this.badges = [];
     this.updateBadges();
-    this.searchString = ""
+    this.getSearchResults().then((results) => {
+      this.badges = results;
+    });
   }
 
   updateBadges() {
     console.log("calling backend")
-    const url = new URL("../api/badge-back", import.meta.url).href;
-    const data = { searchString: this.searchString };
-    
-    fetch(url, {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    const address = '/api/badge-back';
+    fetch(address).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return [];
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    .then((data) => {
+      this.badges = data;
+    });
   }
 
   static get styles() {
@@ -57,8 +53,29 @@ export class BadgeProject extends LitElement {
     `;
   }
 
+  async getSearchResults(value = '') {
+    const address = `/api/badge-back?search=${value}`;
+    const results = await fetch(address).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return [];
+    })
+    .then((data) => {
+      return data;
+    });
+    return results;
+  }
+
+  async _handleSearchEvent(e) {
+    const term = e.detail.value;
+    this.badges = await this.getSearchResults(e.detail.value);
+    
+  }
+
   render() {
     return html`
+    <search-widget @value-changed="${this._handleSearchEvent}"></search-widget>
       <div class="wrapper">
         ${this.badges.map(
           (badge) => html`

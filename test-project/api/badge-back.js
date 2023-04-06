@@ -1,7 +1,8 @@
 export default async function handler(request, res) {
-    var searchInput = request.body.searchString;
-  
-    const badge = [
+const search = req.query.search || '';
+
+
+    var badge = [
       {
         name: "Badge Thing",
         creator: "Steve",
@@ -30,13 +31,21 @@ export default async function handler(request, res) {
       },
       
     ];
-    
-    let filteredData = badge.filter(
-      (value) =>
-      value["name"].toLowerCase().includes(searchInput.toLowerCase()) || 
-      value["creator"].toLowerCase().includes(searchInput.toLowerCase()) ||
-      value["department"].toLowerCase().includes(searchInput.toLowerCase())
-    );
+    badge.map((badges) => {
+      badges.index = badges.name.toLowerCase() + " " + badges.creator.toLowerCase() + " " + badges.department.toLowerCase();
+    });
+    badge = badge.filter((badges) => {
+      if (badges.index.indexOf(search.toLowerCase()) > -1)  {
+        return true;
+      }
+      return false;
+    })
+    //let filteredData = badge.filter(
+      //(value) =>
+      //value["name"].toLowerCase().includes(searchInput.toLowerCase()) || 
+      //value["creator"].toLowerCase().includes(searchInput.toLowerCase()) ||
+      //value["department"].toLowerCase().includes(searchInput.toLowerCase())
+    //);
   
   
     res.setHeader('Cache-Control', 'max-age=0, s-maxage=1800');
@@ -44,8 +53,8 @@ export default async function handler(request, res) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
     res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
-    res.json(filteredData);
+    res.json(badge);
   
-    console.log(filteredData);
+    console.log(badge);
   }
   
